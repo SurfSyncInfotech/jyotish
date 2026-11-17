@@ -1,0 +1,256 @@
+{
+  "info": {
+    "name": "Bhairavshri Vedic Astrology API (SRS v1.1)",
+    "_postman_id": "bhairavshri-astrology-api-v1-1",
+    "description": "Official Postman Collection for Bhairavshri In-House Vedic Astrology Calculation & Prediction API (Approved Developer Implementation Specification v1.1 - SurfSync Infotech Pvt. Ltd.)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api/v1/astrology",
+      "type": "string"
+    },
+    {
+      "key": "apiKey",
+      "value": "bhairavshri-api-key-2026",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. System & Operations",
+      "item": [
+        {
+          "name": "Health Check (GET /health)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            },
+            "description": "Returns operational health and uptime. No sensitive user data."
+          }
+        },
+        {
+          "name": "Settings & Calculation Standards (GET /details/settings)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/details/settings",
+              "host": ["{{baseUrl}}"],
+              "path": ["details", "settings"]
+            },
+            "description": "Returns engine version, rules version, Lahiri (Chitrapaksha) Ayanamsa details, and supported profiles."
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Core Kundli Calculations",
+      "item": [
+        {
+          "name": "Calculate Core Kundli (POST /kundli/calculate)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request_id\": \"req-delhi-001\",\n  \"subject_ref\": \"client-ref-101\",\n  \"birth\": {\n    \"date\": \"1997-08-14\",\n    \"local_time\": \"09:35:00\",\n    \"place_name\": \"New Delhi, India\",\n    \"latitude\": 28.6139,\n    \"longitude\": 77.2090,\n    \"timezone\": \"Asia/Kolkata\"\n  },\n  \"language\": \"en\",\n  \"calculation_profile\": \"vedic-lahiri-v1\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/kundli/calculate",
+              "host": ["{{baseUrl}}"],
+              "path": ["kundli", "calculate"]
+            },
+            "description": "Computes Lagna, Janma Rashi, 9 Planets + Nodes (degrees, speed, retro, combust, dignity), 12 Whole-Sign Houses, and Nakshatra/Pada."
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Advanced Modules & Doshas",
+      "item": [
+        {
+          "name": "Calculate Advanced Kundli (POST /kundli/advanced)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request_id\": \"req-adv-001\",\n  \"birth\": {\n    \"date\": \"2004-02-20\",\n    \"local_time\": \"07:15:00\",\n    \"place_name\": \"Varanasi, India\",\n    \"latitude\": 25.8720,\n    \"longitude\": 82.6850,\n    \"timezone\": \"Asia/Kolkata\"\n  },\n  \"language\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/kundli/advanced",
+              "host": ["{{baseUrl}}"],
+              "path": ["kundli", "advanced"]
+            },
+            "description": "Computes Vimshottari Mahadasha/Antardasha sequence, Raja/Dhana Yogas, Doshas, Manglik analysis with cancellations, 12 Kaal Sarp types, Sade Sati & Dhaiya, and Ashtakavarga SAV."
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Gochar (Planetary Transits)",
+      "item": [
+        {
+          "name": "Calculate Transits & Gochar (POST /transits/calculate)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request_id\": \"req-transit-001\",\n  \"birth\": {\n    \"date\": \"2004-02-20\",\n    \"local_time\": \"07:15:00\",\n    \"latitude\": 25.8720,\n    \"longitude\": 82.6850\n  },\n  \"transit_datetime\": \"2026-11-17T11:00:00+05:30\",\n  \"language\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/transits/calculate",
+              "host": ["{{baseUrl}}"],
+              "path": ["transits", "calculate"]
+            },
+            "description": "Calculates real-time 9-graha transit positions, house from natal Moon, Vedha (obstructions), Shani Sade Sati active phase, and Guru Gochar."
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Life Predictions & Remedies",
+      "item": [
+        {
+          "name": "Generate 9 Predictions (English) (POST /predictions/generate)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request_id\": \"req-pred-en-001\",\n  \"birth\": {\n    \"date\": \"2004-02-20\",\n    \"local_time\": \"07:15:00\",\n    \"place_name\": \"Varanasi, India\",\n    \"latitude\": 25.8720,\n    \"longitude\": 82.6850,\n    \"timezone\": \"Asia/Kolkata\"\n  },\n  \"language\": \"en\",\n  \"user_weight_kg\": 70\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/predictions/generate",
+              "host": ["{{baseUrl}}"],
+              "path": ["predictions", "generate"]
+            },
+            "description": "Generates all 9 prediction categories (Career, Business, Finance, Marriage, Education, Property, Foreign Travel, Dasha, Gochar) + Vedic Remedies in English."
+          }
+        },
+        {
+          "name": "Generate 9 Predictions (Hindi) (POST /predictions/generate)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request_id\": \"req-pred-hi-001\",\n  \"birth\": {\n    \"date\": \"2004-02-20\",\n    \"local_time\": \"07:15:00\",\n    \"place_name\": \"Varanasi, India\",\n    \"latitude\": 25.8720,\n    \"longitude\": 82.6850,\n    \"timezone\": \"Asia/Kolkata\"\n  },\n  \"language\": \"hi\",\n  \"user_weight_kg\": 70\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/predictions/generate",
+              "host": ["{{baseUrl}}"],
+              "path": ["predictions", "generate"]
+            },
+            "description": "Generates all 9 prediction categories + Remedies fully translated in Hindi with classical astrological factors and disclaimers."
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Validation & Security Checks",
+      "item": [
+        {
+          "name": "Unauthorized Access Test (Expect 401)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"birth\": {\n    \"date\": \"2000-01-01\",\n    \"latitude\": 28.6139,\n    \"longitude\": 77.2090\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/kundli/calculate",
+              "host": ["{{baseUrl}}"],
+              "path": ["kundli", "calculate"]
+            },
+            "description": "Verifies that requests missing the x-api-key header are rejected with 401 Unauthorized."
+          }
+        },
+        {
+          "name": "Invalid Latitude Test (Expect 400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"birth\": {\n    \"date\": \"2000-01-01\",\n    \"local_time\": \"12:00:00\",\n    \"latitude\": 195.0,\n    \"longitude\": 77.2090\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/kundli/calculate",
+              "host": ["{{baseUrl}}"],
+              "path": ["kundli", "calculate"]
+            },
+            "description": "Verifies that out-of-range latitude values are rejected with 400 Bad Request (INVALID_BIRTH_INPUT)."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -28,10 +28,12 @@
     "dist"
   ],
   "scripts": {
+    "prestart": "tsc",
+    "start": "node server.js",
+    "test": "node --test tests/reference-kundli.test.cjs",
     "build": "tsc",
     "prepublishOnly": "npm run build",
-    "release": "npm publish --access public",
-    "test": "npm run build && node --test tests/*.test.cjs"
+    "release": "npm publish --access public"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",

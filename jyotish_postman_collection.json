@@ -1,0 +1,466 @@
+{
+  "info": {
+    "name": "Jyotish (Vedic Astrology) API",
+    "_postman_id": "jyotish-vedic-astrology-api-v1",
+    "description": "Comprehensive Postman collection for testing the @prisri/jyotish Vedic Astrology & Panchangam calculation engine.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health & System",
+      "item": [
+        {
+          "name": "Get API Status & Route Catalog",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            },
+            "description": "Returns server status and a complete catalog of all available Vedic astrology routes."
+          }
+        }
+      ]
+    },
+    {
+      "name": "1. Janam Kundli (Birth Chart)",
+      "item": [
+        {
+          "name": "Get Birth Name & Namakshar (Syllables)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Your Name\",\n  \"gender\": \"male\",\n  \"date\": \"2005-08-31T12:00:00+05:30\",\n  \"latitude\": 28.6139,\n  \"longitude\": 77.2090\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/name",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "name"]
+            },
+            "description": "Calculates Moon Nakshatra, Pada, and auspicious Vedic starting letters/syllables (Namakshar) for naming."
+          }
+        },
+        {
+          "name": "Generate Full Kundli (Horoscope, Dasha, Vargas, Drishti)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2004-02-20T07:15:00+05:30\",\n  \"latitude\": 25.872,\n  \"longitude\": 82.685,\n  \"altitude\": 0,\n  \"ayanamsa\": \"lahiri\",\n  \"houseSystem\": \"whole_sign\",\n  \"includeChalit\": true,\n  \"includeKp\": true,\n  \"includeSpecialLagnas\": true,\n  \"includeArudhas\": true,\n  \"includeReferenceCharts\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/kundli",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "kundli"]
+            },
+            "description": "Calculates complete Janam Kundli: Ascendant (Lagna), 9 Vedic + Outer planets, Dignities (exalted, debilitated, combust, retrograde), 12 Houses, Vimshottari Dasha tree, Vargas (D1-D60), Graha Drishti aspects, and Ashtakavarga (BAV & SAV)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Panchangam & Muhurta",
+      "item": [
+        {
+          "name": "Get Daily Panchangam Details",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2026-11-16T11:00:00+05:30\",\n  \"latitude\": 28.6139,\n  \"longitude\": 77.2090,\n  \"lang\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/panchang",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "panchang"]
+            },
+            "description": "Calculates Tithi, Nakshatra, Yoga, Karana, Vara, Sunrise/Sunset, Moonrise/Moonset, Rahu Kalam, Yamaganda, Gulika, Abhijit Muhurta, Brahma Muhurta, Day/Night Choghadiya, Gowri Panchangam, and Hora Lord."
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Kundli Matching (Milan)",
+      "item": [
+        {
+          "name": "Ashtakoota 36 Guna Milan & Mangal Dosha",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"boy\": {\n    \"date\": \"1994-06-12T06:30:00+05:30\",\n    \"latitude\": 28.6139,\n    \"longitude\": 77.2090\n  },\n  \"girl\": {\n    \"date\": \"1996-08-25T11:15:00+05:30\",\n    \"latitude\": 26.8467,\n    \"longitude\": 80.9462\n  },\n  \"lang\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/matching",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "matching"]
+            },
+            "description": "Performs full 36-point Ashtakoota Guna Milan (Varna, Vashya, Tara, Yoni, Graha Maitri, Gana, Bhakoot, Nadi) plus independent Mangal Dosha analysis and cancellations."
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Life Predictions & Guidance",
+      "item": [
+        {
+          "name": "Comprehensive Grand Report (JSON + Markdown)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2004-02-20T07:15:00+05:30\",\n  \"latitude\": 25.872,\n  \"longitude\": 82.685,\n  \"lang\": \"en\",\n  \"userWeightKg\": 70\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/predictions/comprehensive",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "predictions", "comprehensive"]
+            },
+            "description": "Master prediction report synthesizing Career, Wealth, Marriage, Health, Education, Progeny, Yogas, Dasha Timeline, Transits, Gemstones, Lal Kitab, and full formatted Markdown report."
+          }
+        },
+        {
+          "name": "Career Prediction (Job vs Business)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2004-02-20T07:15:00+05:30\",\n  \"latitude\": 25.872,\n  \"longitude\": 82.685,\n  \"lang\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/predictions/career",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "predictions", "career"]
+            },
+            "description": "Evaluates 10th lord, D10 Dashamsha, Jaimini Amatyakaraka (AmK), KP 10th cusp sub-lord, and calculates Job vs Business scores."
+          }
+        },
+        {
+          "name": "Wealth & Finances (Indu Lagna & Dhana Yogas)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2004-02-20T07:15:00+05:30\",\n  \"latitude\": 25.872,\n  \"longitude\": 82.685,\n  \"lang\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/predictions/wealth",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "predictions", "wealth"]
+            },
+            "description": "Calculates Indu Lagna rays (BPHS kalas), Dhana Yogas, 2nd & 11th lords, real estate potential, and equity market speculation suitability."
+          }
+        },
+        {
+          "name": "Marriage & Relationships",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2004-02-20T07:15:00+05:30\",\n  \"latitude\": 25.872,\n  \"longitude\": 82.685,\n  \"lang\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/predictions/marriage",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "predictions", "marriage"]
+            },
+            "description": "Predicts marriage timing candidate years, Upapada Lagna (UL) sustenance, spouse age gap, delay factors, partner profile, and remedies."
+          }
+        },
+        {
+          "name": "Health & Medical Astrology",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2004-02-20T07:15:00+05:30\",\n  \"latitude\": 25.872,\n  \"longitude\": 82.685,\n  \"lang\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/predictions/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "predictions", "health"]
+            },
+            "description": "Assesses Ayurvedic Tridosha constitution (Vata/Pitta/Kapha), Badhaka Sthana, longevity category, and vulnerable organ mappings."
+          }
+        },
+        {
+          "name": "Education & Competitive Exams",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2004-02-20T07:15:00+05:30\",\n  \"latitude\": 25.872,\n  \"longitude\": 82.685,\n  \"lang\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/predictions/education",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "predictions", "education"]
+            },
+            "description": "Calculates intellect rating, academic success score, recommended education streams, and competitive exam success probability."
+          }
+        },
+        {
+          "name": "Progeny (Children & Santana Bhava)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2004-02-20T07:15:00+05:30\",\n  \"latitude\": 25.872,\n  \"longitude\": 82.685,\n  \"lang\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/predictions/progeny",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "predictions", "progeny"]
+            },
+            "description": "Analyzes 5th house, D7 Saptamsha, Putra Dosha afflictions, and fertility indicators."
+          }
+        },
+        {
+          "name": "Classical Yogas & Doshas",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2004-02-20T07:15:00+05:30\",\n  \"latitude\": 25.872,\n  \"longitude\": 82.685,\n  \"lang\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/predictions/yogas",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "predictions", "yogas"]
+            },
+            "description": "Detects Raja Yogas, Dhana Yogas, Pancha Mahapurusha Yogas, Kaal Sarp Dosha (all 12 types), Kemadruma Yoga, and Gajakesari Yoga."
+          }
+        },
+        {
+          "name": "Multi-Chart Gemstone Engine",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"1995-04-16T06:30:00+05:30\",\n  \"latitude\": 28.6139,\n  \"longitude\": 77.2090,\n  \"lang\": \"hi\",\n  \"userWeightKg\": 70\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/predictions/gemstones",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "predictions", "gemstones"]
+            },
+            "description": "Multi-chart cross-verification (D1, Chalit, KP, D9, BNN, Ashtakavarga). Returns recommended, conditional (with exact wearing dasha windows कब से कब तक and removal protocols), and prohibited stones with damage warnings."
+          }
+        },
+        {
+          "name": "Growth Engine & Velocity Roadmap",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2004-02-20T07:15:00+05:30\",\n  \"latitude\": 25.872,\n  \"longitude\": 82.685,\n  \"lang\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/predictions/growth",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "predictions", "growth"]
+            },
+            "description": "Computes trajectory velocity, composite growth score, growth archetypes, four-stage life roadmap, and peak periods."
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Gochar Transits & Shani Sade Sati",
+      "item": [
+        {
+          "name": "Transit Analysis, Sade Sati & Dhaiya",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"birthDate\": \"2004-02-20T07:15:00+05:30\",\n  \"transitDate\": \"2026-11-16T11:00:00+05:30\",\n  \"latitude\": 25.872,\n  \"longitude\": 82.685\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/transits",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "transits"]
+            },
+            "description": "Calculates 9-planet Gochar, Vedha obstructions, Shani Sade Sati (phases 1, 2, 3), Dhaiya (Kantaka/Ashtama), and life domain ratings."
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Advanced Systems (KP & Bhava Chalit)",
+      "item": [
+        {
+          "name": "KP Astrology (Krishnamurti Paddhati)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"1998-11-20T08:30:00+05:30\",\n  \"latitude\": 28.6139,\n  \"longitude\": 77.2090\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/kp",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "kp"]
+            },
+            "description": "Calculates Placidus cusps, 4-fold rulers (Sign, Star, Sub, Sub-sub lords), 4-level significators (A, B, C, D), and ruling planets (RP)."
+          }
+        },
+        {
+          "name": "Bhava Chalit Chart & Shifts",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2004-02-20T07:15:00+05:30\",\n  \"latitude\": 25.872,\n  \"longitude\": 82.685,\n  \"system\": \"sripati\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/chalit",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chalit"]
+            },
+            "description": "Computes Sripati / Equal House Chalit chart, Bhava Madhyas, Sandhis, and detects shifted planets relative to D1."
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Festivals & Ekadashis",
+      "item": [
+        {
+          "name": "Lookup Hindu Festivals & Ekadashi",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2026-11-08\",\n  \"tithi\": 11,\n  \"masa\": 7\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/festivals",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "festivals"]
+            },
+            "description": "Returns festivals and Vratas observed on the given date (calculated via Udaya Tithi) and the specific Ekadashi name."
+          }
+        }
+      ]
+    }
+  ]
+}
